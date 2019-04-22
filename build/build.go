@@ -2,26 +2,65 @@ package build
 
 import (
 	"fmt"
+	"io"
+	"os"
 
 	"github.com/egoholic/ci/stage"
 	"github.com/egoholic/serror"
+	yaml "gopkg.in/yaml.v3"
 )
 
-type Build struct {
-	buildableName string
-	scriptPath    string
-	number        int
-	stages        map[string]*stage.Stage
-	stagesOrder   []string
-	currentStage  int
+type StageConfig struct {
+	Title    string   `yaml:"title"`
+	Commands []string `yaml:"commands"`
+}
+type BuildConfig struct {
+	Title  string        `yaml:"title"`
+	Stages []StageConfig `yaml:"stages"`
 }
 
-func New(buildFile string) *Build {
-	return &Build{}
+type Build struct {
+	title        string
+	num          int
+	scriptPath   string
+	stages       map[string]*stage.Stage
+	stagesOrder  []string
+	currentStage int
+}
+
+func New(buildFile string) (build *Build, err error) {
+	var (
+		file        *os.File
+		data        []byte
+		buildConfig *BuildConfig
+	)
+
+	file, err = os.Open(buildFile)
+	if err != nil {
+		fmt.Printf("ERROR in builder: %s", err.Error())
+		return
+	}
+
+	for {
+		_, err = file.Read(data)
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			fmt.Printf("ERROR in builder: %s", err.Error())
+		}
+	}
+
+	err = yaml.Unmarshal(data, buildConfig)
+	if err != nil {
+		return
+	}
+	build = &Build{buildConfig.Title, 1, buildFile, nil, nil, 0}
+	return
 }
 
 func (build *Build) Name() string {
-	return fmt.Sprintf("%s-%d", build.buildableName, build.number)
+	return fmt.Sprintf("%s-%d", build.title, build.num)
 }
 
 func (build *Build) AddStage(buildStage *stage.Stage) (err error) {

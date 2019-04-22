@@ -9,7 +9,7 @@ import (
 var _ = Describe("CI build", func() {
 	Describe("New()", func() {
 		It("creates new build", func() {
-
+			Expect(New("./test/build.yml")).To(BeAssignableToTypeOf(&Build{}))
 		})
 	})
 

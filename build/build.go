@@ -2,29 +2,26 @@ package build
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/egoholic/ci/stage"
 	"github.com/egoholic/serror"
 )
 
 type Build struct {
-	scripPath     string
 	buildableName string
-	uuid          string
+	scriptPath    string
+	number        int
 	stages        map[string]*stage.Stage
 	stagesOrder   []string
 	currentStage  int
-	startedAt     time.Time
-	finishedAt    time.Time
 }
 
-func New() *Build {
+func New(buildFile string) *Build {
 	return &Build{}
 }
 
 func (build *Build) Name() string {
-	return fmt.Sprintf("%s-%s", build.buildableName, build.uuid)
+	return fmt.Sprintf("%s-%d", build.buildableName, build.number)
 }
 
 func (build *Build) AddStage(buildStage *stage.Stage) (err error) {
@@ -36,5 +33,13 @@ func (build *Build) AddStage(buildStage *stage.Stage) (err error) {
 	}
 	build.stages[stageName] = buildStage
 	build.stagesOrder = append(build.stagesOrder, stageName)
+	return
+}
+
+func (build *Build) Info() string {
+	return ""
+}
+
+func (build *Build) Build() (err error) {
 	return
 }

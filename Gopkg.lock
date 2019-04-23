@@ -3,14 +3,6 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a07f8e1f7270c15e46a5ce408ae06ebec5cfd9e4398b1d9e3a99a20c53a2272c"
-  name = "github.com/egoholic/serror"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "5d21b5009d685e809888521da4cc96730ff148cf"
-
-[[projects]]
-  branch = "master"
   digest = "1:59392ed8afb901aab4287d4894df8191722e34f3957716f4350c8c133ce99046"
   name = "github.com/hpcloud/tail"
   packages = [
@@ -152,7 +144,6 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/egoholic/serror",
     "github.com/onsi/ginkgo",
     "github.com/onsi/gomega",
     "gopkg.in/yaml.v3",

@@ -1,6 +1,7 @@
 package pipeline
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"os"
@@ -21,7 +22,7 @@ type PipelineConfig struct {
 
 type Pipeline struct {
 	title        string
-	pipelineFile string
+	configSource string
 	stages       map[string]*stage.Stage
 	stagesOrder  []string
 	currentStage int
@@ -39,6 +40,7 @@ func New(pipelineFile string) (pipeline *Pipeline, err error) {
 		fmt.Printf("ERROR in builder: %s", err.Error())
 		return
 	}
+	defer file.Close()
 
 	for {
 		_, err = file.Read(data)
@@ -47,6 +49,7 @@ func New(pipelineFile string) (pipeline *Pipeline, err error) {
 		}
 		if err != nil {
 			fmt.Printf("ERROR in builder: %s", err.Error())
+			return
 		}
 	}
 
@@ -56,4 +59,12 @@ func New(pipelineFile string) (pipeline *Pipeline, err error) {
 	}
 	pipeline = &Pipeline{pipelineConfig.Title, pipelineFile, nil, nil, 0}
 	return
+}
+
+func (pipeline *Pipeline) Title() string {
+	return pipeline.title
+}
+
+func (pipeline *Pipeline) Run(ctx context.Context) {
+
 }

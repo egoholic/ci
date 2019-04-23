@@ -1,7 +1,7 @@
-title: test
+title: Test-Pipeline
 stages:
   -
-    title: TestBuild
+    title: Build
     commands:
       - echo "Hello, World!"
       - echo "Hello!"

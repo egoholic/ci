@@ -1,6 +1,8 @@
 package stage
 
 import (
+	"context"
+
 	"github.com/egoholic/ci/cmd"
 )
 
@@ -20,4 +22,8 @@ func (stage *Stage) Name() string {
 
 func (stage *Stage) AddCommand(name string, arg ...string) {
 	stage.commands = append(stage.commands, cmd.New(name, arg...))
+}
+
+func (stage *Stage) Run(ctx context.Context) {
+
 }

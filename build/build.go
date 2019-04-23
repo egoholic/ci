@@ -9,18 +9,15 @@ func (_ *Settings) DBPath() string {
 var config = &Settings{}
 
 type Build struct {
-	num int
-	ref string
+	num  int
+	ref  string
+	path string
 }
 
 type Repo struct {
 	builds []*Build
 }
 
-func NewRepo(DBPath string) *Repo {
-
-}
-
-func Create(ref string) *Build {
-
+func New(num int, ref string, path string) *Build {
+	return &Build{num, ref, path}
 }

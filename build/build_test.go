@@ -8,54 +8,8 @@ import (
 
 var _ = Describe("CI build", func() {
 	Describe("New()", func() {
-		It("creates new build", func() {
-			Expect(New("./test/build.yml")).To(BeAssignableToTypeOf(&Build{}))
-		})
-	})
-
-	Describe(".AddStage()", func() {
-		Context("when stage with given name already exists", func() {
-			It("fails", func() {
-
-			})
-		})
-
-		Context("when stage with given name does not exist", func() {
-			It("adds new stage", func() {
-
-			})
-		})
-	})
-
-	Describe(".Build()", func() {
-		Context("when successfull", func() {
-			It("prints the output and executes all the commands", func() {
-
-			})
-		})
-
-		Context("when failed", func() {
-			It("prints the output and breaks commands execution with failure", func() {
-
-			})
-		})
-	})
-
-	Describe(".Info()", func() {
-		Context("when not runned", func() {
-
-		})
-
-		Context("when runned", func() {
-
-		})
-
-		Context("when finished with succeed", func() {
-
-		})
-
-		Context("when finished with failure", func() {
-
+		It("returns build", func() {
+			Expect(New(1, "abcdef12345", "/builds")).To(BeAssignableToTypeOf(&Build{}))
 		})
 	})
 })

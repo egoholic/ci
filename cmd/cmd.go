@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"os"
 	"os/exec"
@@ -50,10 +49,7 @@ func NewWriter(path string) (writer *Writer, err error) {
 			return
 		}
 	}
-	fmt.Printf("\n\n\n\nERR1: %#v", err)
 	file, err = os.Open(path)
-	fmt.Printf("\n\n\n\nERR2: %#v", err)
-
 	if err != nil {
 		return
 	}

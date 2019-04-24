@@ -72,3 +72,23 @@ func (pipeline *Pipeline) Title() string {
 func (pipeline *Pipeline) Run(ctx context.Context) {
 
 }
+
+type Repo struct {
+	title string
+}
+
+func NewRepo(title string) *Repo {
+	return &Repo{title}
+}
+
+func (repo *Repo) Load() (err error) {
+	return
+}
+
+func (repo *Repo) All() []interface{} {
+	return nil
+}
+
+func (repo *Repo) Add(pipeline *Pipeline) (err error) {
+
+}

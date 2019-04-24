@@ -1,7 +1,6 @@
-Title: 'Pipeline1'
-Stages:
-  -
-    Title: 'Stage1'
-    Commands:
+title: 'Pipeline1'
+stages:
+  - title: 'Stage1'
+    commands:
       - 'echo "Hello!"'
       - 'echo "\tWorld!"'

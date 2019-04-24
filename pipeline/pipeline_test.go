@@ -112,4 +112,18 @@ var _ = Describe("Pipeline", func() {
 			})
 		})
 	})
+
+	Describe("Repo", func() {
+		Describe(".Load()", func() {
+
+		})
+
+		Describe(".All()", func() {
+
+		})
+
+		Describe(".Add()", func() {
+
+		})
+	})
 })

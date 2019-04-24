@@ -65,7 +65,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d5d8006ff2f825ddeac50550bbe002464b1f85810666e700a68459e91e2f875f"
+  digest = "1:edcff25c46eb79b1a74accf2ce971f62e07ab824790334f42095771a53d4c569"
   name = "golang.org/x/net"
   packages = [
     "html",
@@ -73,7 +73,7 @@
     "html/charset",
   ]
   pruneopts = "UT"
-  revision = "afa5a82059c6356159f699d81beff22a81842231"
+  revision = "afe8014c977f78fe2406743d9d32c8bd44d0542b"
 
 [[projects]]
   branch = "master"
@@ -132,21 +132,13 @@
   revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
   version = "v2.2.2"
 
-[[projects]]
-  branch = "v3"
-  digest = "1:779222b9ba282af681a4a202584a7cfd3cc811ce5a25de45f0c7eb35b320b577"
-  name = "gopkg.in/yaml.v3"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "cdc409dda467df8d60dc5c7d18f38e810979de95"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
     "github.com/onsi/ginkgo",
     "github.com/onsi/gomega",
-    "gopkg.in/yaml.v3",
+    "gopkg.in/yaml.v2",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

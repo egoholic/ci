@@ -1,8 +1,7 @@
-title: Test-Pipeline
-stages:
+Title: 'Pipeline1'
+Stages:
   -
-    title: Build
-    commands:
-      - echo "Hello, World!"
-      - echo "Hello!"
-
+    Title: 'Stage1'
+    Commands:
+      - 'echo "Hello!"'
+      - 'echo "\tWorld!"'

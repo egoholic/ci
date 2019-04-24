@@ -2,63 +2,67 @@ package pipeline
 
 import (
 	"context"
-	"fmt"
 	"io"
-	"os"
 
-	"github.com/egoholic/ci/stage"
-	yaml "gopkg.in/yaml.v3"
+	"github.com/egoholic/ci/cmd"
+	yaml "gopkg.in/yaml.v2"
 )
 
 type StageConfig struct {
-	Title    string   `yaml:"title"`
-	Commands []string `yaml:"commands"`
+	Title    string
+	Commands []string `yaml: ",flow"`
+}
+
+type Stage struct {
+	title    string
+	commands []*cmd.Command
+}
+
+func NewStage(name string) *Stage {
+	return &Stage{name, nil}
+}
+
+func (stage *Stage) Title() string {
+	return stage.title
+}
+
+func (stage *Stage) AddCommand(name string, arg ...string) error {
+	stage.commands = append(stage.commands, cmd.New(name, arg...))
+	return nil
+}
+
+func (stage *Stage) Run(ctx context.Context) {
+
 }
 
 type PipelineConfig struct {
-	Title  string        `yaml:"title"`
-	Stages []StageConfig `yaml:"stages"`
+	Title  string
+	Stages []StageConfig `yaml: ",flow"`
 }
 
 type Pipeline struct {
-	title        string
-	configSource string
-	stages       map[string]*stage.Stage
-	stagesOrder  []string
-	currentStage int
+	title     string
+	stages    []*Stage
+	stagesCur int
 }
 
-func New(pipelineFile string) (pipeline *Pipeline, err error) {
-	var (
-		file           *os.File
-		data           []byte
-		pipelineConfig *PipelineConfig
-	)
-
-	file, err = os.Open(pipelineFile)
-	if err != nil {
-		fmt.Printf("ERROR in builder: %s", err.Error())
-		return
-	}
-	defer file.Close()
-
-	for {
-		_, err = file.Read(data)
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			fmt.Printf("ERROR in builder: %s", err.Error())
-			return
-		}
-	}
-
-	err = yaml.Unmarshal(data, pipelineConfig)
+func ParseConfig(source io.Reader) (config *PipelineConfig, err error) {
+	data := make([]byte, 4098)
+	n, err := source.Read(data)
 	if err != nil {
 		return
 	}
-	pipeline = &Pipeline{pipelineConfig.Title, pipelineFile, nil, nil, 0}
+	data = data[0 : n-1]
+	err = yaml.Unmarshal(data, config)
 	return
+}
+
+func NewWithConfig(config *PipelineConfig) *Pipeline {
+	return &Pipeline{config.Title, nil, 0}
+}
+
+func New(title string) *Pipeline {
+	return &Pipeline{title, nil, 0}
 }
 
 func (pipeline *Pipeline) Title() string {

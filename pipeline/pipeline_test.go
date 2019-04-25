@@ -43,7 +43,7 @@ var _ = Describe("Pipeline", func() {
 		})
 	})
 
-	Describe("ParseConfig()", func() {
+	Describe("ParseYAMLConfig()", func() {
 		Context("when correct config source", func() {
 			// It("returns pipeline configuration", func() {
 			// 	path, _ := filepath.Abs("./test/pipeline.yml")

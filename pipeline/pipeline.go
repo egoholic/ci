@@ -46,7 +46,7 @@ type Pipeline struct {
 	stagesCur int
 }
 
-func ParseConfig(source io.Reader) (config *PipelineConfig, err error) {
+func ParseYAMLConfig(source io.Reader) (config *PipelineConfig, err error) {
 	data := make([]byte, 4098)
 	n, err := source.Read(data)
 	if err != nil {
@@ -69,8 +69,24 @@ func (pipeline *Pipeline) Title() string {
 	return pipeline.title
 }
 
-func (pipeline *Pipeline) Run(ctx context.Context) {
+func (pipeline *Pipeline) Run(ctx context.Context) (err error) {
+	return
+}
 
+func (pipeline *Pipeline) ReRun(ctx context.Context) (err error) {
+	return
+}
+
+func (pipeline *Pipeline) Stop() (err error) {
+	return
+}
+
+type RepoConfig struct{}
+
+var config *RepoConfig
+
+func (_ *RepoConfig) PipelinesDataPath() string {
+	return "./data/pipelines"
 }
 
 type Repo struct {

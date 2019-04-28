@@ -4,45 +4,18 @@ import (
 	"context"
 	"io"
 
-	"github.com/egoholic/ci/cmd"
+	"github.com/egoholic/ci/pipeline/stage"
 	yaml "gopkg.in/yaml.v2"
 )
 
-type StageConfig struct {
-	Title    string
-	Commands []string `yaml: ",flow"`
-}
-
-type Stage struct {
-	title    string
-	commands []*cmd.Command
-}
-
-func NewStage(name string) *Stage {
-	return &Stage{name, nil}
-}
-
-func (stage *Stage) Title() string {
-	return stage.title
-}
-
-func (stage *Stage) AddCommand(name string, arg ...string) error {
-	stage.commands = append(stage.commands, cmd.New(name, arg...))
-	return nil
-}
-
-func (stage *Stage) Run(ctx context.Context) {
-
-}
-
 type PipelineConfig struct {
 	Title  string
-	Stages []StageConfig `yaml: ",flow"`
+	Stages []stage.StageConfig `yaml: ",flow"`
 }
 
 type Pipeline struct {
 	title     string
-	stages    []*Stage
+	stages    []*stage.Stage
 	stagesCur int
 }
 
@@ -79,32 +52,4 @@ func (pipeline *Pipeline) ReRun(ctx context.Context) (err error) {
 
 func (pipeline *Pipeline) Stop() (err error) {
 	return
-}
-
-type RepoConfig struct{}
-
-var config *RepoConfig
-
-func (_ *RepoConfig) PipelinesDataPath() string {
-	return "./data/pipelines"
-}
-
-type Repo struct {
-	title string
-}
-
-func NewRepo(title string) *Repo {
-	return &Repo{title}
-}
-
-func (repo *Repo) Load() (err error) {
-	return
-}
-
-func (repo *Repo) All() []interface{} {
-	return nil
-}
-
-func (repo *Repo) Add(pipeline *Pipeline) (err error) {
-
 }
